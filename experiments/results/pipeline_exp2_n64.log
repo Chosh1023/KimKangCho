@@ -1,0 +1,15 @@
+2026-09-30 10:38:27.69 start N64 K3
+{"configuration": "N64 S16 K3", "done": 100, "success": 97, "mean_total_s": 0.8398540350014809}
+{"configuration": "N64 S16 K3", "done": 200, "success": 190, "mean_total_s": 0.8461777084990172}
+{"configuration": "N64 S16 K3", "done": 300, "success": 280, "mean_total_s": 0.8752080889977515}
+{"configuration": "N64 S16 K3", "done": 400, "success": 375, "mean_total_s": 0.921155691249005}
+{"configuration": "N64 S16 K3", "done": 500, "success": 464, "mean_total_s": 0.9155805092002265}
+{"phase": "config", "N": 64, "steps": 16, "K": 3, "scenes": 500, "success": 464, "file": "C:\\Users\\shcho\\IDNA_TOP\\k4-whole-flow-gt\\experiments\\results\\exp2_noise_flow_bspline64_N64_S16_K3.jsonl"}
+2026-09-30 10:46:29.76 start N64 K5
+{"configuration": "N64 S16 K5", "done": 100, "success": 97, "mean_total_s": 0.8808369510003832}
+{"configuration": "N64 S16 K5", "done": 200, "success": 190, "mean_total_s": 0.8913760309974896}
+{"configuration": "N64 S16 K5", "done": 300, "success": 280, "mean_total_s": 0.8909444046637509}
+{"configuration": "N64 S16 K5", "done": 400, "success": 376, "mean_total_s": 0.8862318524956936}
+{"configuration": "N64 S16 K5", "done": 500, "success": 465, "mean_total_s": 0.8623533671994228}
+{"phase": "config", "N": 64, "steps": 16, "K": 5, "scenes": 500, "success": 465, "file": "C:\\Users\\shcho\\IDNA_TOP\\k4-whole-flow-gt\\experiments\\results\\exp2_noise_flow_bspline64_N64_S16_K5.jsonl"}
+2026-09-30 10:54:04.56 done

@@ -1,0 +1,84 @@
+{
+  "arguments": {
+    "dataset": "data\\k4_numeric_flow_full_v1_20260917",
+    "scenes": "data\\flow_scenes",
+    "eval_uids": "experiments\\eval_uids.json",
+    "output": "run-logs\\noise_flow_gt_bspline64_v1",
+    "output_repr": "bspline64",
+    "init": "run-logs\\k4_spline_projected_j_v1_20260920\\epoch_10.pt",
+    "no_init": false,
+    "resume": null,
+    "epochs": 20,
+    "batch_size": 16,
+    "learning_rate": 5e-05,
+    "steps": 16,
+    "train_limit": null,
+    "validation_limit": 128,
+    "panel_scenes": 16,
+    "panel_candidates": 16,
+    "panel_top_k": 3,
+    "panel_workers": 8,
+    "physical_start": 3,
+    "physical_every": 4,
+    "physical_batch": 4,
+    "cost_weight": 0.05,
+    "projection_iterations": 2,
+    "save_every": 5,
+    "seed": 20260929,
+    "device": "cuda"
+  },
+  "train_samples": 83996,
+  "validation_samples": 128,
+  "panel_uids": [
+    "s01-o000000002-efa6cb7e3fab",
+    "s00-o000006025-843dd188dcb1",
+    "s00-o000002614-8723fbf8d0b5",
+    "s00-o000007490-9e7116862408",
+    "s00-o000000849-a41fdbc181e2",
+    "s02-o000000272-3a222305f402",
+    "s00-o000000722-6a79de68c4fe",
+    "s00-o000000081-4605da9874c1",
+    "s00-o000000270-84c8c23ccc80",
+    "s00-o000001091-299e73d110f8",
+    "s00-o000001866-3705419ee2ea",
+    "s00-o000007145-38e9a98e2dde",
+    "s00-o000007948-7f0049d8ccb8",
+    "s01-o000000044-310f62a09b71",
+    "s00-o000000588-c5bf7bdad2ed",
+    "s00-o000007080-927751e034af"
+  ],
+  "held_out_excluded": 500,
+  "dataset_sha256": "60d3ead1c3a20dc775828c544e638068571d0be527983c1830fd23f285695175",
+  "representation": {
+    "schema": "noise-scene-flow-v1",
+    "output_repr": "bspline64",
+    "knots": 64,
+    "condition": "scene+task",
+    "source": "gaussian",
+    "projection": "bounded_shooting_then_exact_forward_backward_caps",
+    "projection_iterations": 2,
+    "target": "original OCP GT (dataset latent)"
+  },
+  "model_inputs": [
+    "numeric scene tokens",
+    "task (start/goal)"
+  ],
+  "source": "N(0, I)",
+  "initialization": {
+    "checkpoint": "run-logs\\k4_spline_projected_j_v1_20260920\\epoch_10.pt",
+    "loaded": 148,
+    "skipped_from_checkpoint": [
+      "core.encoder.path.0.bias",
+      "core.encoder.path.0.weight",
+      "core.encoder.path.2.bias",
+      "core.encoder.path.2.weight"
+    ],
+    "missing_in_checkpoint": []
+  },
+  "checkpoint_selection": "best.pt: highest panel scene success, then lowest mean J/GT",
+  "source_hashes": {
+    "train_noise_flow.py": "e08e26afb327efec137a1718829345ee3f6abb025c0a5a9c41ff00fc4a821afe",
+    "noise_flow.py": "e4d9d9950e3247949a3a4c4ef61fe8a4abdd3f6fa77af4d00696d05de6046358",
+    "noise_flow_solver.py": "2ac88aaee6e29cdb38e6dad194486b67ef55b9f2f1746b2e9cbd074b0ea83ae8"
+  }
+}

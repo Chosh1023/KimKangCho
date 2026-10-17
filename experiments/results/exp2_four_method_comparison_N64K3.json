@@ -1,0 +1,119 @@
+{
+ "scenes": 500,
+ "common_success": 453,
+ "methods": {
+  "hybrid_astar": {
+   "success": 490,
+   "J_common": {
+    "min": 18.654511853742257,
+    "median": 42.46214245166139,
+    "max": 67.81565442363026,
+    "mean": 43.593213416998516,
+    "n": 453
+   },
+   "J_over_gt_common": {
+    "min": 1.823043224723232,
+    "median": 3.87127328941726,
+    "max": 7.6265779124835715,
+    "mean": 4.07268313855879,
+    "n": 453
+   },
+   "time_s_all": {
+    "min": 0.09484899998642504,
+    "median": 2.39107240003068,
+    "max": 15.462654499919154,
+    "mean": 3.299480927801225,
+    "n": 500
+   }
+  },
+  "hybrid_astar_ipopt": {
+   "success": 488,
+   "J_common": {
+    "min": 5.59821244720317,
+    "median": 10.518332525479758,
+    "max": 24.623622070486654,
+    "mean": 12.128779331607928,
+    "n": 453
+   },
+   "J_over_gt_common": {
+    "min": 0.44711196406811393,
+    "median": 1.00975970473204,
+    "max": 2.320943221350416,
+    "mean": 1.0664975127553284,
+    "n": 453
+   },
+   "time_s_all": {
+    "min": 0.09484899998642504,
+    "median": 7.504328200069722,
+    "max": 31.517479500034824,
+    "mean": 9.299338943202049,
+    "n": 500
+   }
+  },
+  "noise_flow_N64_K3": {
+   "success": 464,
+   "J_common": {
+    "min": 5.19709850383311,
+    "median": 10.51963677672903,
+    "max": 20.70070004904339,
+    "mean": 11.357517747681392,
+    "n": 453
+   },
+   "J_over_gt_common": {
+    "min": 0.4292668637961273,
+    "median": 1.013912622817982,
+    "max": 2.2758484582417595,
+    "mean": 1.0067235854740026,
+    "n": 453
+   },
+   "time_s_all": {
+    "min": 0.43062270001973957,
+    "median": 0.8890505500603467,
+    "max": 2.1403516000136733,
+    "mean": 0.9155805092002265,
+    "n": 500
+   }
+  },
+  "ocp_gt": {
+   "success": 500,
+   "J_common": {
+    "min": 5.598559837757427,
+    "median": 10.624075889182574,
+    "max": 21.48134493242922,
+    "mean": 11.298747768332154,
+    "n": 453
+   },
+   "J_over_gt_common": {
+    "min": 1.0,
+    "median": 1.0,
+    "max": 1.0,
+    "mean": 1.0,
+    "n": 453
+   },
+   "time_s_all": {
+    "min": 0.931316500000321,
+    "median": 2.1807929999995395,
+    "max": 23.619668000001184,
+    "mean": 3.8847564166000264,
+    "n": 500
+   }
+  }
+ },
+ "ocp_gt_rerun": {
+  "verified": 499,
+  "reproduced_within_1pct": 184,
+  "time_s_reproduced": {
+   "min": 1.015387199999168,
+   "median": 3.978596899999502,
+   "max": 23.619668000001184,
+   "mean": 4.476642200000104,
+   "n": 184
+  },
+  "condition_check_ratio": 1.038,
+  "note": "OCP(GT) time = same OCP code/settings as the dataset GT, seeded with the stored initial route (known_feasible_route); excludes generating that route. J for OCP(GT) is the dataset GT."
+ },
+ "definitions": {
+  "J_common": "scenes where HA*, HA*+IPOPT, noise Flow N64K3 and OCP GT all succeed",
+  "time": "500 scenes incl. failures; HA*+IPOPT = HA* plan + IPOPT (single process); noise Flow = encoding->selection; OCP(GT) = timing_gt_ocp.jsonl solve_s"
+ }
+}

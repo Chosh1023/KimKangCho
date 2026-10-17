@@ -1,0 +1,206 @@
+2026-09-29 21:19:40.93 start main
+{"configuration": "main N16 S16 K3", "done": 100, "success": 94, "mean_total_s": 0.2998693430016283}
+{"configuration": "main N16 S16 K3", "done": 200, "success": 183, "mean_total_s": 0.3050424325035419}
+{"configuration": "main N16 S16 K3", "done": 300, "success": 270, "mean_total_s": 0.29806634900121326}
+{"configuration": "main N16 S16 K3", "done": 400, "success": 361, "mean_total_s": 0.3094189962532255}
+{"configuration": "main N16 S16 K3", "done": 500, "success": 442, "mean_total_s": 0.31047890780260784}
+{"phase": "main", "scenes": 500, "success": 442, "file": "C:\\Users\\shcho\\IDNA_TOP\\k4-whole-flow-gt\\experiments\\results\\exp2_noise_flow_bspline64.jsonl"}
+2026-09-29 21:22:47.26 start sweep
+{"configuration": "N1 S4 K1", "done": 100, "success": 18, "mean_total_s": 0.1060542019980494}
+{"configuration": "N1 S4 K1", "done": 200, "success": 41, "mean_total_s": 0.0978258779994212}
+{"configuration": "N1 S4 K1", "done": 300, "success": 60, "mean_total_s": 0.09280528266720163}
+{"configuration": "N1 S4 K1", "done": 400, "success": 69, "mean_total_s": 0.08945605700195301}
+{"configuration": "N1 S4 K1", "done": 500, "success": 78, "mean_total_s": 0.08731778740207664}
+{"phase": "sweep", "N": 1, "steps": 4, "K": 1, "success": 78, "wall_s": 47.06435440003406}
+{"configuration": "N1 S4 K3", "done": 100, "success": 18, "mean_total_s": 0.08201829700148665}
+{"configuration": "N1 S4 K3", "done": 200, "success": 41, "mean_total_s": 0.0879425019986229}
+{"configuration": "N1 S4 K3", "done": 300, "success": 60, "mean_total_s": 0.08904503099620342}
+{"configuration": "N1 S4 K3", "done": 400, "success": 69, "mean_total_s": 0.08939752899692394}
+{"configuration": "N1 S4 K3", "done": 500, "success": 78, "mean_total_s": 0.08741402719798498}
+{"phase": "sweep", "N": 1, "steps": 4, "K": 3, "success": 78, "wall_s": 43.89443390001543}
+{"configuration": "N1 S4 K5", "done": 100, "success": 18, "mean_total_s": 0.1181519949925132}
+{"configuration": "N1 S4 K5", "done": 200, "success": 41, "mean_total_s": 0.11374121449422091}
+{"configuration": "N1 S4 K5", "done": 300, "success": 60, "mean_total_s": 0.11424553332695117}
+{"configuration": "N1 S4 K5", "done": 400, "success": 69, "mean_total_s": 0.11058717774460092}
+{"configuration": "N1 S4 K5", "done": 500, "success": 78, "mean_total_s": 0.10940118339657784}
+{"phase": "sweep", "N": 1, "steps": 4, "K": 5, "success": 78, "wall_s": 54.903662399970926}
+{"configuration": "N1 S8 K1", "done": 100, "success": 30, "mean_total_s": 0.1492871959914919}
+{"configuration": "N1 S8 K1", "done": 200, "success": 53, "mean_total_s": 0.13948182699736209}
+{"configuration": "N1 S8 K1", "done": 300, "success": 71, "mean_total_s": 0.13077530699782072}
+{"configuration": "N1 S8 K1", "done": 400, "success": 79, "mean_total_s": 0.12585681924771053}
+{"configuration": "N1 S8 K1", "done": 500, "success": 91, "mean_total_s": 0.12261979119759053}
+{"phase": "sweep", "N": 1, "steps": 8, "K": 1, "success": 91, "wall_s": 61.53031049994752}
+{"configuration": "N1 S8 K3", "done": 100, "success": 30, "mean_total_s": 0.11019588900147938}
+{"configuration": "N1 S8 K3", "done": 200, "success": 53, "mean_total_s": 0.11093043300323188}
+{"configuration": "N1 S8 K3", "done": 300, "success": 71, "mean_total_s": 0.10928000700077974}
+{"configuration": "N1 S8 K3", "done": 400, "success": 79, "mean_total_s": 0.10587405850063078}
+{"configuration": "N1 S8 K3", "done": 500, "success": 91, "mean_total_s": 0.10675646360032261}
+{"phase": "sweep", "N": 1, "steps": 8, "K": 3, "success": 91, "wall_s": 53.60655779996887}
+{"configuration": "N1 S8 K5", "done": 100, "success": 30, "mean_total_s": 0.11659708299906925}
+{"configuration": "N1 S8 K5", "done": 200, "success": 53, "mean_total_s": 0.11078474150097463}
+{"configuration": "N1 S8 K5", "done": 300, "success": 71, "mean_total_s": 0.10826922100114947}
+{"configuration": "N1 S8 K5", "done": 400, "success": 79, "mean_total_s": 0.10646212674997514}
+{"configuration": "N1 S8 K5", "done": 500, "success": 91, "mean_total_s": 0.10678332480182871}
+{"phase": "sweep", "N": 1, "steps": 8, "K": 5, "success": 91, "wall_s": 53.617191300028935}
+{"configuration": "N1 S16 K1", "done": 100, "success": 58, "mean_total_s": 0.14616341200424357}
+{"configuration": "N1 S16 K1", "done": 200, "success": 129, "mean_total_s": 0.15042082300235052}
+{"configuration": "N1 S16 K1", "done": 300, "success": 205, "mean_total_s": 0.1560588876681868}
+{"configuration": "N1 S16 K1", "done": 400, "success": 279, "mean_total_s": 0.15706703900243155}
+{"configuration": "N1 S16 K1", "done": 500, "success": 332, "mean_total_s": 0.16234892760100775}
+{"phase": "sweep", "N": 1, "steps": 16, "K": 1, "success": 332, "wall_s": 81.4598682000069}
+{"configuration": "N1 S16 K3", "done": 100, "success": 58, "mean_total_s": 0.16010221199248917}
+{"configuration": "N1 S16 K3", "done": 200, "success": 129, "mean_total_s": 0.16649901599623262}
+{"configuration": "N1 S16 K3", "done": 300, "success": 205, "mean_total_s": 0.17088303066363247}
+{"configuration": "N1 S16 K3", "done": 400, "success": 279, "mean_total_s": 0.1690954524971312}
+{"configuration": "N1 S16 K3", "done": 500, "success": 332, "mean_total_s": 0.16869347979780286}
+{"phase": "sweep", "N": 1, "steps": 16, "K": 3, "success": 332, "wall_s": 84.59494420001283}
+{"configuration": "N1 S16 K5", "done": 100, "success": 58, "mean_total_s": 0.15080775099806487}
+{"configuration": "N1 S16 K5", "done": 200, "success": 129, "mean_total_s": 0.1531012639979599}
+{"configuration": "N1 S16 K5", "done": 300, "success": 205, "mean_total_s": 0.155473070666582}
+{"configuration": "N1 S16 K5", "done": 400, "success": 279, "mean_total_s": 0.15895547924999845}
+{"configuration": "N1 S16 K5", "done": 500, "success": 332, "mean_total_s": 0.1602494833995588}
+{"phase": "sweep", "N": 1, "steps": 16, "K": 5, "success": 332, "wall_s": 80.43947039998602}
+{"configuration": "N4 S4 K1", "done": 100, "success": 48, "mean_total_s": 0.16218293100246228}
+{"configuration": "N4 S4 K1", "done": 200, "success": 112, "mean_total_s": 0.14283457950281445}
+{"configuration": "N4 S4 K1", "done": 300, "success": 173, "mean_total_s": 0.1387234140005118}
+{"configuration": "N4 S4 K1", "done": 400, "success": 225, "mean_total_s": 0.13446233550086617}
+{"configuration": "N4 S4 K1", "done": 500, "success": 265, "mean_total_s": 0.13000032880157233}
+{"phase": "sweep", "N": 4, "steps": 4, "K": 1, "success": 265, "wall_s": 65.43949270003941}
+{"configuration": "N4 S4 K3", "done": 100, "success": 54, "mean_total_s": 0.12557610099436714}
+{"configuration": "N4 S4 K3", "done": 200, "success": 117, "mean_total_s": 0.1283249084983254}
+{"configuration": "N4 S4 K3", "done": 300, "success": 181, "mean_total_s": 0.1267884989990853}
+{"configuration": "N4 S4 K3", "done": 400, "success": 236, "mean_total_s": 0.1259301252476871}
+{"configuration": "N4 S4 K3", "done": 500, "success": 275, "mean_total_s": 0.12247108619869687}
+{"phase": "sweep", "N": 4, "steps": 4, "K": 3, "success": 275, "wall_s": 61.50095410004724}
+{"configuration": "N4 S4 K5", "done": 100, "success": 53, "mean_total_s": 0.11587410799926147}
+{"configuration": "N4 S4 K5", "done": 200, "success": 106, "mean_total_s": 0.11714674700109753}
+{"configuration": "N4 S4 K5", "done": 300, "success": 154, "mean_total_s": 0.1179225843337675}
+{"configuration": "N4 S4 K5", "done": 400, "success": 195, "mean_total_s": 0.1174037047510501}
+{"configuration": "N4 S4 K5", "done": 500, "success": 221, "mean_total_s": 0.1147561674027238}
+{"phase": "sweep", "N": 4, "steps": 4, "K": 5, "success": 221, "wall_s": 57.60922069998924}
+{"configuration": "N4 S8 K1", "done": 100, "success": 63, "mean_total_s": 0.1421972669963725}
+{"configuration": "N4 S8 K1", "done": 200, "success": 123, "mean_total_s": 0.14225514649646356}
+{"configuration": "N4 S8 K1", "done": 300, "success": 178, "mean_total_s": 0.1421785193285905}
+{"configuration": "N4 S8 K1", "done": 400, "success": 220, "mean_total_s": 0.13834527424827683}
+{"configuration": "N4 S8 K1", "done": 500, "success": 261, "mean_total_s": 0.13712620939780026}
+{"phase": "sweep", "N": 4, "steps": 8, "K": 1, "success": 261, "wall_s": 68.82178889994975}
+{"configuration": "N4 S8 K3", "done": 100, "success": 79, "mean_total_s": 0.1548815529991407}
+{"configuration": "N4 S8 K3", "done": 200, "success": 148, "mean_total_s": 0.1496617939992575}
+{"configuration": "N4 S8 K3", "done": 300, "success": 208, "mean_total_s": 0.1469217083331508}
+{"configuration": "N4 S8 K3", "done": 400, "success": 260, "mean_total_s": 0.14540314549871255}
+{"configuration": "N4 S8 K3", "done": 500, "success": 299, "mean_total_s": 0.14254581839824096}
+{"phase": "sweep", "N": 4, "steps": 8, "K": 3, "success": 299, "wall_s": 71.5311279000016}
+{"configuration": "N4 S8 K5", "done": 100, "success": 76, "mean_total_s": 0.1548116270045284}
+{"configuration": "N4 S8 K5", "done": 200, "success": 143, "mean_total_s": 0.1547827715042513}
+{"configuration": "N4 S8 K5", "done": 300, "success": 204, "mean_total_s": 0.15379639466914038}
+{"configuration": "N4 S8 K5", "done": 400, "success": 253, "mean_total_s": 0.16585458325163926}
+{"configuration": "N4 S8 K5", "done": 500, "success": 286, "mean_total_s": 0.16407596159912646}
+{"phase": "sweep", "N": 4, "steps": 8, "K": 5, "success": 286, "wall_s": 82.38319129997399}
+{"configuration": "N4 S16 K1", "done": 100, "success": 75, "mean_total_s": 0.19751621199771763}
+{"configuration": "N4 S16 K1", "done": 200, "success": 153, "mean_total_s": 0.19545678999915253}
+{"configuration": "N4 S16 K1", "done": 300, "success": 233, "mean_total_s": 0.19510026733080546}
+{"configuration": "N4 S16 K1", "done": 400, "success": 315, "mean_total_s": 0.19710730799648446}
+{"configuration": "N4 S16 K1", "done": 500, "success": 384, "mean_total_s": 0.19769069199706427}
+{"phase": "sweep", "N": 4, "steps": 16, "K": 1, "success": 384, "wall_s": 99.16829850000795}
+{"configuration": "N4 S16 K3", "done": 100, "success": 89, "mean_total_s": 0.22469683200586588}
+{"configuration": "N4 S16 K3", "done": 200, "success": 176, "mean_total_s": 0.22990356100257486}
+{"configuration": "N4 S16 K3", "done": 300, "success": 261, "mean_total_s": 0.22860899366787635}
+{"configuration": "N4 S16 K3", "done": 400, "success": 349, "mean_total_s": 0.24502024350076682}
+{"configuration": "N4 S16 K3", "done": 500, "success": 420, "mean_total_s": 0.26140942459972577}
+{"phase": "sweep", "N": 4, "steps": 16, "K": 3, "success": 420, "wall_s": 131.01089939998928}
+{"configuration": "N4 S16 K5", "done": 100, "success": 85, "mean_total_s": 0.3197353749955073}
+{"configuration": "N4 S16 K5", "done": 200, "success": 172, "mean_total_s": 0.31564594749885144}
+{"configuration": "N4 S16 K5", "done": 300, "success": 257, "mean_total_s": 0.3168200646678451}
+{"configuration": "N4 S16 K5", "done": 400, "success": 340, "mean_total_s": 0.31395458700193557}
+{"configuration": "N4 S16 K5", "done": 500, "success": 405, "mean_total_s": 0.3079113336014561}
+{"phase": "sweep", "N": 4, "steps": 16, "K": 5, "success": 405, "wall_s": 154.36380190006457}
+{"configuration": "N8 S4 K1", "done": 100, "success": 51, "mean_total_s": 0.2353023429948371}
+{"configuration": "N8 S4 K1", "done": 200, "success": 124, "mean_total_s": 0.2137673970020842}
+{"configuration": "N8 S4 K1", "done": 300, "success": 195, "mean_total_s": 0.20684628700333027}
+{"configuration": "N8 S4 K1", "done": 400, "success": 267, "mean_total_s": 0.20140363425161922}
+{"configuration": "N8 S4 K1", "done": 500, "success": 318, "mean_total_s": 0.19594331940007395}
+{"phase": "sweep", "N": 8, "steps": 4, "K": 1, "success": 318, "wall_s": 98.53690720000304}
+{"configuration": "N8 S4 K3", "done": 100, "success": 75, "mean_total_s": 0.21717199500999412}
+{"configuration": "N8 S4 K3", "done": 200, "success": 158, "mean_total_s": 0.21928339800157118}
+{"configuration": "N8 S4 K3", "done": 300, "success": 230, "mean_total_s": 0.21765126666946646}
+{"configuration": "N8 S4 K3", "done": 400, "success": 299, "mean_total_s": 0.21679995450307615}
+{"configuration": "N8 S4 K3", "done": 500, "success": 355, "mean_total_s": 0.21304611640330404}
+{"phase": "sweep", "N": 8, "steps": 4, "K": 3, "success": 355, "wall_s": 106.90799680002965}
+{"configuration": "N8 S4 K5", "done": 100, "success": 63, "mean_total_s": 0.20284737399662844}
+{"configuration": "N8 S4 K5", "done": 200, "success": 136, "mean_total_s": 0.2090782269963529}
+{"configuration": "N8 S4 K5", "done": 300, "success": 208, "mean_total_s": 0.20529681699932553}
+{"configuration": "N8 S4 K5", "done": 400, "success": 273, "mean_total_s": 0.2214067869982682}
+{"configuration": "N8 S4 K5", "done": 500, "success": 326, "mean_total_s": 0.22875569279817864}
+{"phase": "sweep", "N": 8, "steps": 4, "K": 5, "success": 326, "wall_s": 114.82161280000582}
+{"configuration": "N8 S8 K1", "done": 100, "success": 65, "mean_total_s": 0.3342759030032903}
+{"configuration": "N8 S8 K1", "done": 200, "success": 128, "mean_total_s": 0.3003907085029641}
+{"configuration": "N8 S8 K1", "done": 300, "success": 186, "mean_total_s": 0.28963796333332237}
+{"configuration": "N8 S8 K1", "done": 400, "success": 229, "mean_total_s": 0.2884225760004483}
+{"configuration": "N8 S8 K1", "done": 500, "success": 271, "mean_total_s": 0.28551305119995957}
+{"phase": "sweep", "N": 8, "steps": 8, "K": 1, "success": 271, "wall_s": 143.32520129997283}
+{"configuration": "N8 S8 K3", "done": 100, "success": 88, "mean_total_s": 0.3356744469969999}
+{"configuration": "N8 S8 K3", "done": 200, "success": 169, "mean_total_s": 0.3369081074971473}
+{"configuration": "N8 S8 K3", "done": 300, "success": 246, "mean_total_s": 0.33864823666828064}
+{"configuration": "N8 S8 K3", "done": 400, "success": 317, "mean_total_s": 0.34231036700162804}
+{"configuration": "N8 S8 K3", "done": 500, "success": 376, "mean_total_s": 0.33940019940119237}
+{"phase": "sweep", "N": 8, "steps": 8, "K": 3, "success": 376, "wall_s": 170.29497319995426}
+{"configuration": "N8 S8 K5", "done": 100, "success": 84, "mean_total_s": 0.33462757399305704}
+{"configuration": "N8 S8 K5", "done": 200, "success": 166, "mean_total_s": 0.34983763049764094}
+{"configuration": "N8 S8 K5", "done": 300, "success": 246, "mean_total_s": 0.32581616499771676}
+{"configuration": "N8 S8 K5", "done": 400, "success": 318, "mean_total_s": 0.3134262282479904}
+{"configuration": "N8 S8 K5", "done": 500, "success": 371, "mean_total_s": 0.2996617667977698}
+{"phase": "sweep", "N": 8, "steps": 8, "K": 5, "success": 371, "wall_s": 150.33277109998744}
+{"configuration": "N8 S16 K1", "done": 100, "success": 75, "mean_total_s": 0.36759916600654835}
+{"configuration": "N8 S16 K1", "done": 200, "success": 155, "mean_total_s": 0.35974235100322405}
+{"configuration": "N8 S16 K1", "done": 300, "success": 238, "mean_total_s": 0.3550725283337912}
+{"configuration": "N8 S16 K1", "done": 400, "success": 324, "mean_total_s": 0.35755348375008905}
+{"configuration": "N8 S16 K1", "done": 500, "success": 398, "mean_total_s": 0.370371891199844}
+{"phase": "sweep", "N": 8, "steps": 16, "K": 1, "success": 398, "wall_s": 185.73926760000177}
+{"configuration": "N8 S16 K3", "done": 100, "success": 91, "mean_total_s": 0.4199600629974157}
+{"configuration": "N8 S16 K3", "done": 200, "success": 180, "mean_total_s": 0.42117065700120293}
+{"configuration": "N8 S16 K3", "done": 300, "success": 266, "mean_total_s": 0.4072587516643883}
+{"configuration": "N8 S16 K3", "done": 400, "success": 356, "mean_total_s": 0.41445821199944477}
+{"configuration": "N8 S16 K3", "done": 500, "success": 432, "mean_total_s": 0.40604551959899254}
+{"phase": "sweep", "N": 8, "steps": 16, "K": 3, "success": 432, "wall_s": 203.65376589994412}
+{"configuration": "N8 S16 K5", "done": 100, "success": 91, "mean_total_s": 0.417075975992484}
+{"configuration": "N8 S16 K5", "done": 200, "success": 179, "mean_total_s": 0.4123441650019959}
+{"configuration": "N8 S16 K5", "done": 300, "success": 265, "mean_total_s": 0.3957115853337261}
+{"configuration": "N8 S16 K5", "done": 400, "success": 354, "mean_total_s": 0.40169398925005223}
+{"configuration": "N8 S16 K5", "done": 500, "success": 429, "mean_total_s": 0.3967687524002977}
+{"phase": "sweep", "N": 8, "steps": 16, "K": 5, "success": 429, "wall_s": 199.02764240000397}
+{"configuration": "N16 S4 K1", "done": 100, "success": 61, "mean_total_s": 0.622708807992749}
+{"configuration": "N16 S4 K1", "done": 200, "success": 137, "mean_total_s": 0.4593822979961988}
+{"configuration": "N16 S4 K1", "done": 300, "success": 221, "mean_total_s": 0.4035587816634992}
+{"configuration": "N16 S4 K1", "done": 400, "success": 305, "mean_total_s": 0.45643761174753306}
+{"configuration": "N16 S4 K1", "done": 500, "success": 375, "mean_total_s": 0.48472526299837043}
+{"phase": "sweep", "N": 16, "steps": 4, "K": 1, "success": 375, "wall_s": 243.13879670004826}
+{"configuration": "N16 S4 K3", "done": 100, "success": 87, "mean_total_s": 0.8827612339972984}
+{"configuration": "N16 S4 K3", "done": 200, "success": 177, "mean_total_s": 0.9792526539979736}
+{"configuration": "N16 S4 K3", "done": 300, "success": 261, "mean_total_s": 0.9916218313314796}
+{"configuration": "N16 S4 K3", "done": 400, "success": 346, "mean_total_s": 1.72179824074934}
+{"configuration": "N16 S4 K3", "done": 500, "success": 409, "mean_total_s": 2.321748570400756}
+{"phase": "sweep", "N": 16, "steps": 4, "K": 3, "success": 409, "wall_s": 1162.3399461000226}
+{"configuration": "N16 S4 K5", "done": 100, "success": 87, "mean_total_s": 1.7205419309949503}
+{"configuration": "N16 S4 K5", "done": 200, "success": 174, "mean_total_s": 1.030518251999165}
+{"configuration": "N16 S4 K5", "done": 300, "success": 255, "mean_total_s": 0.7454619929982194}
+{"configuration": "N16 S4 K5", "done": 400, "success": 332, "mean_total_s": 0.6016060327476589}
+{"configuration": "N16 S4 K5", "done": 500, "success": 394, "mean_total_s": 0.5140317821993958}
+{"phase": "sweep", "N": 16, "steps": 4, "K": 5, "success": 394, "wall_s": 259.5256922999397}
+{"configuration": "N16 S8 K1", "done": 100, "success": 79, "mean_total_s": 0.18720324100344443}
+{"configuration": "N16 S8 K1", "done": 200, "success": 159, "mean_total_s": 0.19394634050258902}
+{"configuration": "N16 S8 K1", "done": 300, "success": 233, "mean_total_s": 0.19625933166787338}
+{"configuration": "N16 S8 K1", "done": 400, "success": 301, "mean_total_s": 0.19348533850134117}
+{"configuration": "N16 S8 K1", "done": 500, "success": 366, "mean_total_s": 0.19125770920049398}
+{"phase": "sweep", "N": 16, "steps": 8, "K": 1, "success": 366, "wall_s": 96.00113210000563}
+{"configuration": "N16 S8 K3", "done": 100, "success": 92, "mean_total_s": 0.23707119200611487}
+{"configuration": "N16 S8 K3", "done": 200, "success": 178, "mean_total_s": 0.35618234250403474}
+{"configuration": "N16 S8 K3", "done": 300, "success": 260, "mean_total_s": 0.31177653033557967}
+{"configuration": "N16 S8 K3", "done": 400, "success": 337, "mean_total_s": 0.282663935252931}
+{"configuration": "N16 S8 K3", "done": 500, "success": 400, "mean_total_s": 0.26395559480180963}
+{"phase": "sweep", "N": 16, "steps": 8, "K": 3, "success": 400, "wall_s": 132.39595729997382}
+{"configuration": "N16 S8 K5", "done": 100, "success": 92, "mean_total_s": 0.19701393699622713}
+{"configuration": "N16 S8 K5", "done": 200, "success": 178, "mean_total_s": 0.1959630964981625}
+{"configuration": "N16 S8 K5", "done": 300, "success": 261, "mean_total_s": 0.1941196499989989}
+{"configuration": "N16 S8 K5", "done": 400, "success": 343, "mean_total_s": 0.19404434224823489}
+{"configuration": "N16 S8 K5", "done": 500, "success": 406, "mean_total_s": 0.19356257159891538}
+{"phase": "sweep", "N": 16, "steps": 8, "K": 5, "success": 406, "wall_s": 97.21130850003101}

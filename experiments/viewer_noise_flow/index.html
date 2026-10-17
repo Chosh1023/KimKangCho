@@ -1,0 +1,308 @@
+<title>Noise Flow 궤적 비교</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: summary table on top, then scene list | (BEV map + per-scene metrics) and a speed-time chart. */
+:root{
+  --page:#f4f5f3; --surface:#fcfcfb; --ink:#141613; --ink-2:#4f524c; --muted:#858880;
+  --grid:#e3e4de; --axis:#c3c4bb; --line:rgba(20,22,19,.10);
+  --obstacle:#bfc1b8; --lot:#8d9087; --slot-fill:rgba(27,175,122,.10); --slot-line:#1baf7a;
+  --s-flow:#2a78d6; --s-ipopt:#eb6834; --s-gt:#1baf7a; --s-hastar:#5d6059;
+  --chip:#e9ebe5; --focus:#2a78d6;
+  --sans:"IBM Plex Sans KR",system-ui,-apple-system,"Segoe UI","Malgun Gothic",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --page:#0f100e; --surface:#1a1b19; --ink:#f4f5f1; --ink-2:#c3c4bb; --muted:#8d9087;
+    --grid:#2b2d29; --axis:#3a3c37; --line:rgba(255,255,255,.10);
+    --obstacle:#4a4c46; --lot:#7d8078; --slot-fill:rgba(25,158,112,.16); --slot-line:#199e70;
+    --s-flow:#3987e5; --s-ipopt:#d95926; --s-gt:#199e70; --s-hastar:#aeb0a7;
+    --chip:#262824; --focus:#3987e5;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --page:#0f100e; --surface:#1a1b19; --ink:#f4f5f1; --ink-2:#c3c4bb; --muted:#8d9087;
+  --grid:#2b2d29; --axis:#3a3c37; --line:rgba(255,255,255,.10);
+  --obstacle:#4a4c46; --lot:#7d8078; --slot-fill:rgba(25,158,112,.16); --slot-line:#199e70;
+  --s-flow:#3987e5; --s-ipopt:#d95926; --s-gt:#199e70; --s-hastar:#aeb0a7;
+  --chip:#262824; --focus:#3987e5;
+}
+*{box-sizing:border-box}
+body{background:var(--page);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.5;padding:24px 20px 40px}
+.wrap{max-width:1240px;margin:0 auto;display:grid;gap:20px}
+h1{font-size:24px;font-weight:600;margin:0;text-wrap:balance;letter-spacing:-.01em}
+h2{font-size:15px;font-weight:600;margin:0}
+.lede{color:var(--ink-2);margin:4px 0 0;max-width:72ch}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;min-width:0}
+.label{font-size:12px;color:var(--muted);letter-spacing:.02em}
+.table-scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{padding:7px 10px;text-align:right;border-bottom:1px solid var(--grid);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+th{font-weight:500;color:var(--ink-2);font-size:12px}
+tbody tr:last-child td{border-bottom:none}
+.key{display:inline-flex;align-items:center;gap:8px}
+.swatch{width:18px;height:0;border-top:3px solid var(--c);flex:none}
+.swatch.dash{border-top-style:dashed}
+.explorer{display:grid;grid-template-columns:260px minmax(0,1fr);gap:16px;align-items:start}
+.scenes{display:grid;gap:2px;max-height:760px;overflow-y:auto;padding-right:4px}
+.scene{display:grid;grid-template-columns:28px 1fr auto;gap:8px;align-items:center;padding:7px 8px;border-radius:7px;border:1px solid transparent;background:none;color:var(--ink);font:inherit;text-align:left;cursor:pointer}
+.scene:hover{background:var(--chip)}
+.scene[aria-current="true"]{background:var(--chip);border-color:var(--line)}
+.scene:focus-visible,.toggle:focus-visible{outline:2px solid var(--focus);outline-offset:1px}
+.scene .idx{color:var(--muted);font-size:12px}
+.scene .uid{font-size:12px;color:var(--ink-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ratio{font-size:12px;padding:1px 7px;border-radius:999px;background:var(--chip)}
+.ratio.better{box-shadow:inset 0 0 0 1px var(--s-gt)}
+.detail{display:grid;gap:16px;min-width:0}
+.top{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:16px;align-items:start}
+.mapbox{position:relative;aspect-ratio:1/1;width:100%;max-width:100%}
+svg{display:block;width:100%;height:100%}
+.metrics td .dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--c);margin-right:8px;vertical-align:-1px}
+.toggle{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:4px 10px;font:inherit;font-size:13px;cursor:pointer}
+.toggle[aria-pressed="false"]{opacity:.45}
+.toggles{display:flex;flex-wrap:wrap;gap:8px}
+.chart{position:relative}
+.tip{position:absolute;pointer-events:none;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:12px;box-shadow:0 4px 16px rgba(0,0,0,.12);display:grid;gap:3px;min-width:150px}
+.tip .row{display:flex;justify-content:space-between;gap:12px}
+.note{font-size:12px;color:var(--muted);margin:0}
+.path{fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:opacity .15s}
+.dim .path:not(.hot){opacity:.18}
+@media (max-width:900px){.explorer,.top{grid-template-columns:1fr}.scenes{max-height:260px}}
+@media (prefers-reduced-motion:reduce){.path{transition:none}}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Noise Flow 궤적 비교</h1>
+    <p class="lede">초기 경로 없이 가우시안 노이즈에서 출발하는 Noise Flow(후보 64개, 상위 3개 구조, Euler 16 step)를 Hybrid A*(HA*) 단독, HA* + IPOPT, 기준 OCP 해(GT)와 같은 주차 장면에서 비교합니다. J = T + 0.5·∫(a² + v²·δ̇²)dt, 목표 허용 오차 0.1 m / 5°.</p>
+  </header>
+
+  <section class="panel" aria-labelledby="sum-h">
+    <h2 id="sum-h">평가 장면 500개 요약</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>방법</th><th>성공</th><th>J 중앙값</th><th>GT 대비 J 중앙값</th><th>GT 대비 J 평균</th><th>계산 시간 중앙값</th><th>계산 시간 평균</th></tr></thead>
+        <tbody class="num" id="summary"><tr><td colspan="7" style="text-align:left">요약을 불러오는 중입니다.</td></tr></tbody>
+      </table>
+    </div>
+    <p class="note" id="summary-note">J와 GT 대비 J는 네 방법이 모두 성공한 장면 기준, 성공률과 계산 시간은 500개 장면 전체(실패 포함) 기준입니다.</p>
+  </section>
+
+  <section class="explorer" aria-label="장면 탐색">
+    <nav class="panel" aria-labelledby="list-h">
+      <h2 id="list-h">장면 <span class="label" id="list-sub"></span></h2>
+      <p class="note" style="margin:4px 0 10px">GT 대비 Noise Flow J 순. 1 미만은 Noise Flow가 GT보다 낮은 J를 낸 장면입니다.</p>
+      <div class="scenes" id="scenes" role="list"></div>
+    </nav>
+
+    <div class="detail">
+      <div class="top">
+        <div class="panel">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap">
+            <h2 id="scene-h">경로</h2><span class="label num" id="scene-uid"></span>
+          </div>
+          <div class="mapbox" id="map"></div>
+          <p class="note">BEV 좌표, 위쪽이 자차 전방. 회색은 장애물, 초록 사각형은 목표 주차칸, 원은 기어 전환 지점입니다. 실선 윤곽은 시작 자세, 점선 윤곽은 목표 자세의 차량입니다.</p>
+        </div>
+        <div class="panel" style="display:grid;gap:12px">
+          <div class="toggles" id="toggles" aria-label="방법 표시"></div>
+          <div class="table-scroll">
+            <table class="metrics">
+              <thead><tr><th>이 장면</th><th>J</th><th>GT 대비</th><th>주행 시간</th><th>기어 전환</th><th>계산 시간</th></tr></thead>
+              <tbody class="num" id="metrics"></tbody>
+            </table>
+          </div>
+          <p class="note">계산 시간: Noise Flow는 입력 인코딩부터 최종 경로 선택까지(후보 64개 생성과 검증 포함), HA* + IPOPT는 HA* 탐색 시간과 IPOPT 시간의 합입니다. GT는 계산 시간이 기록되어 있지 않습니다.</p>
+        </div>
+      </div>
+      <div class="panel">
+        <h2>속도 — 시간</h2>
+        <p class="note" style="margin:2px 0 8px">후진도 속도 크기로 표시합니다. 0으로 떨어지는 지점은 기어 전환 정지입니다.</p>
+        <div class="chart" id="speed"></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+const METHODS=[
+  {key:'flow',name:'Noise Flow (N=64)',color:'--s-flow',dash:''},
+  {key:'ipopt',name:'HA* + IPOPT',color:'--s-ipopt',dash:''},
+  {key:'gt',name:'OCP 기준해 (GT)',color:'--s-gt',dash:''},
+  {key:'hastar',name:'HA* 단독',color:'--s-hastar',dash:'6 5'}
+];
+const NS='http://www.w3.org/2000/svg';
+const state={data:null,index:0,visible:{flow:true,ipopt:true,gt:true,hastar:true},hot:null};
+let store=null;try{store=window.localStorage}catch(e){store=null}
+function remember(k,v){try{store&&store.setItem(k,JSON.stringify(v))}catch(e){}}
+function recall(k,d){try{const v=store&&store.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function el(tag,attrs,parent){const n=document.createElementNS(NS,tag);for(const k in attrs)n.setAttribute(k,attrs[k]);if(parent)parent.appendChild(n);return n}
+const fmt=(v,d=2)=>Number(v).toFixed(d);
+
+function renderSummary(){
+  const d=state.data,tb=document.getElementById('summary');tb.textContent='';
+  for(const m of METHODS){
+    const s=d.summary[m.key];const tr=document.createElement('tr');
+    const time=s.time_all?[fmt(s.time_all.median)+' s',fmt(s.time_all.mean)+' s']:['기록 없음','기록 없음'];
+    tr.innerHTML=`<td><span class="key"><span class="swatch${m.dash?' dash':''}" style="--c:var(${m.color})"></span>${m.name}</span></td>`+
+      `<td>${s.success} (${fmt(s.success_rate*100,1)}%)</td><td>${fmt(s.J_common.median)}</td>`+
+      `<td>${fmt(s.J_over_gt_common.median,3)}</td><td>${fmt(s.J_over_gt_common.mean,3)}</td><td>${time[0]}</td><td>${time[1]}</td>`;
+    tb.appendChild(tr);
+  }
+  const f=d.flow_failures||{},parts=[];
+  if(f.goal_not_reached)parts.push(`목표 미도달 ${f.goal_not_reached}`);
+  if(f.collision)parts.push(`충돌 ${f.collision}`);
+  document.getElementById('summary-note').textContent=
+    `J와 GT 대비 J는 네 방법이 모두 성공한 ${d.common_success}개 장면 기준, 성공률과 계산 시간은 ${d.eval_scenes}개 장면 전체(실패 포함) 기준입니다. `+
+    `Noise Flow 실패 ${d.eval_scenes-d.summary.flow.success}개 장면의 주된 원인: ${parts.join(', ')}. HA* + IPOPT 시간은 단일 프로세스 재측정 값입니다.`;
+}
+
+function renderList(){
+  const box=document.getElementById('scenes');box.textContent='';
+  document.getElementById('list-sub').textContent=`${state.data.scenes.length}개`;
+  state.data.scenes.forEach((s,i)=>{
+    const b=document.createElement('button');b.className='scene';b.type='button';b.setAttribute('role','listitem');
+    b.setAttribute('aria-current',i===state.index?'true':'false');
+    b.innerHTML=`<span class="idx num">${String(i+1).padStart(2,'0')}</span><span class="uid">${s.uid}</span><span class="ratio num${s.flow_over_gt<1?' better':''}">${fmt(s.flow_over_gt)}</span>`;
+    b.title=`Noise Flow J / GT J = ${fmt(s.flow_over_gt,3)}`;
+    b.addEventListener('click',()=>{state.index=i;remember('nf-scene',i);render()});
+    box.appendChild(b);
+  });
+}
+
+function bounds(s){
+  let xs=[],ys=[];
+  for(const m of METHODS){const p=s.methods[m.key].path;xs.push(...p.x);ys.push(...p.y)}
+  for(const q of s.slot){xs.push(q[0]);ys.push(q[1])}
+  xs.push(s.start[0]+4,s.start[0]-2);ys.push(s.start[1]);
+  let x0=Math.min(...xs)-2.2,x1=Math.max(...xs)+2.2,y0=Math.min(...ys)-2.2,y1=Math.max(...ys)+2.2;
+  const span=Math.max(x1-x0,y1-y0);const cx=(x0+x1)/2,cy=(y0+y1)/2;
+  return {x0:cx-span/2,x1:cx+span/2,y0:cy-span/2,y1:cy+span/2,span};
+}
+
+function footprint(pose,veh){
+  const [x,y,yaw]=pose,c=Math.cos(yaw),s=Math.sin(yaw),cx=x+veh.rear_axle_to_center*c,cy=y+veh.rear_axle_to_center*s;
+  const L=veh.length/2,W=veh.width/2;
+  return [[L,W],[L,-W],[-L,-W],[-L,W]].map(([a,b])=>[cx+a*c-b*s,cy+a*s+b*c]);
+}
+
+function renderMap(s){
+  const host=document.getElementById('map');host.textContent='';
+  const B=bounds(s),S=600,k=S/B.span;
+  const P=(x,y)=>[(y-B.y0)*k,(B.x1-x)*k];
+  const svg=el('svg',{viewBox:`0 0 ${S} ${S}`,role:'img','aria-label':'주차 장면과 네 방법의 경로'},host);
+  el('rect',{x:0,y:0,width:S,height:S,fill:'var(--surface)'},svg);
+  const g=el('g',{stroke:'var(--grid)','stroke-width':1},svg);
+  for(let v=Math.ceil(B.x0);v<=B.x1;v++){const [,py]=P(v,0);el('line',{x1:0,x2:S,y1:py,y2:py},g)}
+  for(let v=Math.ceil(B.y0);v<=B.y1;v++){const [px]=P(0,v);el('line',{x1:px,x2:px,y1:0,y2:S},g)}
+  const og=el('g',{fill:'var(--obstacle)'},svg);
+  for(const [xa,xb,ya,yb] of s.obstacles){
+    if(xb<B.x0||xa>B.x1||yb<B.y0||ya>B.y1)continue;
+    const [px,py]=P(xb,ya);el('rect',{x:px,y:py,width:(yb-ya)*k,height:(xb-xa)*k},og);
+  }
+  const poly=(pts,attrs)=>el('polygon',Object.assign({points:pts.map(q=>P(q[0],q[1]).join(',')).join(' ')},attrs),svg);
+  poly(s.lot,{fill:'none',stroke:'var(--lot)','stroke-width':1.5});
+  poly(s.slot,{fill:'var(--slot-fill)',stroke:'var(--slot-line)','stroke-width':1.5});
+  poly(footprint(s.start,state.data.vehicle),{fill:'none',stroke:'var(--ink-2)','stroke-width':1.2});
+  const layer=el('g',{},svg);if(state.hot)layer.setAttribute('class','dim');
+  const order=['hastar','gt','ipopt','flow'];
+  for(const key of order){
+    if(!state.visible[key])continue;const m=METHODS.find(q=>q.key===key),p=s.methods[key].path;
+    const d=p.x.map((x,i)=>(i?'L':'M')+P(x,p.y[i]).map(v=>v.toFixed(1)).join(' ')).join('');
+    const a=el('path',{d,class:'path'+(state.hot===key?' hot':''),stroke:`var(${m.color})`},layer);
+    if(m.dash)a.setAttribute('stroke-dasharray',m.dash);
+    for(let i=1;i<p.gear.length;i++){if(p.gear[i]!==p.gear[i-1]){const [cx,cy]=P(p.x[i],p.y[i]);
+      el('circle',{cx,cy,r:4.5,fill:`var(${m.color})`,stroke:'var(--surface)','stroke-width':2,class:'path'+(state.hot===key?' hot':'')},layer)}}
+  }
+  poly(footprint(s.goal,state.data.vehicle),{fill:'none',stroke:'var(--ink)','stroke-width':1.2,'stroke-dasharray':'3 3'});
+  const [sx,sy]=P(s.start[0],s.start[1]);el('circle',{cx:sx,cy:sy,r:4,fill:'var(--ink)'},svg);
+  const t=el('text',{x:sx+8,y:sy-8,fill:'var(--ink-2)','font-size':13,'font-family':'var(--sans)'},svg);t.textContent='시작';
+  const [gx,gy]=P(s.goal[0],s.goal[1]);const tg=el('text',{x:gx+8,y:gy+16,fill:'var(--ink-2)','font-size':13,'font-family':'var(--sans)'},svg);tg.textContent='목표';
+  const sb=el('g',{},svg);const bx=16,by=S-18;el('line',{x1:bx,x2:bx+k,y1:by,y2:by,stroke:'var(--ink-2)','stroke-width':2},sb);
+  const st=el('text',{x:bx+k+6,y:by+4,fill:'var(--muted)','font-size':12,'font-family':'var(--mono)'},sb);st.textContent='1 m';
+}
+
+function renderToggles(){
+  const box=document.getElementById('toggles');box.textContent='';
+  for(const m of METHODS){
+    const b=document.createElement('button');b.type='button';b.className='toggle';b.id='toggle-'+m.key;
+    b.setAttribute('aria-pressed',String(state.visible[m.key]));
+    b.innerHTML=`<span class="swatch${m.dash?' dash':''}" style="--c:var(${m.color})"></span>${m.name}`;
+    b.addEventListener('click',()=>{state.visible[m.key]=!state.visible[m.key];remember('nf-visible',state.visible);render()});
+    b.addEventListener('mouseenter',()=>{state.hot=m.key;renderMap(cur())});
+    b.addEventListener('mouseleave',()=>{state.hot=null;renderMap(cur())});
+    box.appendChild(b);
+  }
+}
+
+function renderMetrics(s){
+  const tb=document.getElementById('metrics');tb.textContent='';const gtJ=s.methods.gt.J;
+  const time={flow:s.timing.flow,ipopt:s.timing.ipopt==null?null:s.timing.hastar+s.timing.ipopt,gt:null,hastar:s.timing.hastar};
+  for(const m of METHODS){const r=s.methods[m.key];const tr=document.createElement('tr');
+    tr.innerHTML=`<td><span class="dot" style="--c:var(${m.color})"></span>${m.name}</td><td>${fmt(r.J)}</td><td>${fmt(r.J/gtJ)}</td><td>${fmt(r.duration,1)} s</td><td>${r.gear_changes}</td><td>${time[m.key]==null?'-':fmt(time[m.key])+' s'}</td>`;
+    tb.appendChild(tr)}
+}
+
+function renderSpeed(s){
+  const host=document.getElementById('speed');host.textContent='';
+  const W=820,H=260,ml=44,mr=16,mt=10,mb=34;
+  const tmax=Math.max(...METHODS.map(m=>{const t=s.methods[m.key].path.t;return t[t.length-1]}));
+  const niceT=Math.ceil(tmax/5)*5,vmax=2.5;
+  const X=t=>ml+(W-ml-mr)*t/niceT,Y=v=>mt+(H-mt-mb)*(1-v/vmax);
+  const svg=el('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':'방법별 속도-시간 곡선',style:'height:auto'},host);
+  el('rect',{x:0,y:0,width:W,height:H,fill:'var(--surface)'},svg);
+  const ax=el('g',{'font-size':12,'font-family':'var(--mono)',fill:'var(--muted)'},svg);
+  for(let v=0;v<=2.5;v+=0.5){el('line',{x1:ml,x2:W-mr,y1:Y(v),y2:Y(v),stroke:v===0?'var(--axis)':'var(--grid)','stroke-width':1},svg);
+    const t=el('text',{x:ml-8,y:Y(v)+4,'text-anchor':'end'},ax);t.textContent=v.toFixed(1)}
+  const step=niceT>40?10:5;
+  for(let t=0;t<=niceT;t+=step){const tx=el('text',{x:X(t),y:H-12,'text-anchor':'middle'},ax);tx.textContent=t}
+  const lg=el('g',{},svg);
+  for(const key of ['hastar','gt','ipopt','flow']){if(!state.visible[key])continue;const m=METHODS.find(q=>q.key===key),p=s.methods[key].path;
+    const d=p.t.map((t,i)=>(i?'L':'M')+X(t).toFixed(1)+' '+Y(Math.min(p.v[i],vmax)).toFixed(1)).join('');
+    const a=el('path',{d,class:'path',stroke:`var(${m.color})`},lg);if(m.dash)a.setAttribute('stroke-dasharray',m.dash);
+    const n=p.t.length-1;el('circle',{cx:X(p.t[n]),cy:Y(p.v[n]),r:4,fill:`var(${m.color})`,stroke:'var(--surface)','stroke-width':2},lg)}
+  const cap=el('text',{x:W-mr,y:mt+12,'text-anchor':'end','font-size':11,fill:'var(--muted)','font-family':'var(--sans)'},svg);cap.textContent='세로: 속도 m/s · 가로: 시간 s';
+  const cross=el('line',{y1:mt,y2:H-mb,stroke:'var(--axis)','stroke-width':1,visibility:'hidden'},svg);
+  const tip=document.createElement('div');tip.className='tip';tip.hidden=true;host.appendChild(tip);
+  const hit=el('rect',{x:ml,y:mt,width:W-ml-mr,height:H-mt-mb,fill:'transparent'},svg);
+  const valueAt=(p,t)=>{if(t>p.t[p.t.length-1])return null;let i=0;while(i<p.t.length-1&&p.t[i+1]<t)i++;const t0=p.t[i],t1=p.t[Math.min(i+1,p.t.length-1)];const w=t1>t0?(t-t0)/(t1-t0):0;return p.v[i]+(p.v[Math.min(i+1,p.v.length-1)]-p.v[i])*w};
+  hit.addEventListener('pointermove',ev=>{
+    const r=svg.getBoundingClientRect(),sx=(ev.clientX-r.left)*W/r.width,t=Math.max(0,Math.min(niceT,(sx-ml)/(W-ml-mr)*niceT));
+    cross.setAttribute('x1',X(t));cross.setAttribute('x2',X(t));cross.setAttribute('visibility','visible');
+    let rows=`<div class="row"><span>t</span><span class="num">${t.toFixed(1)} s</span></div>`;
+    for(const m of METHODS){if(!state.visible[m.key])continue;const v=valueAt(s.methods[m.key].path,t);
+      rows+=`<div class="row"><span class="key"><span class="swatch${m.dash?' dash':''}" style="--c:var(${m.color})"></span>${m.name}</span><span class="num">${v==null?'도착':v.toFixed(2)+' m/s'}</span></div>`}
+    tip.innerHTML=rows;tip.hidden=false;
+    const hr=host.getBoundingClientRect(),px=ev.clientX-hr.left,py=ev.clientY-hr.top;
+    tip.style.left=Math.max(4,Math.min(px+14,hr.width-tip.offsetWidth-4))+'px';tip.style.top=Math.max(4,py-tip.offsetHeight-10)+'px';
+  });
+  hit.addEventListener('pointerleave',()=>{cross.setAttribute('visibility','hidden');tip.hidden=true});
+}
+
+const cur=()=>state.data.scenes[state.index];
+function render(){
+  const s=cur();
+  document.querySelectorAll('.scene').forEach((b,i)=>b.setAttribute('aria-current',i===state.index?'true':'false'));
+  document.getElementById('scene-h').textContent=`장면 ${String(state.index+1).padStart(2,'0')} · Noise Flow/GT ${fmt(s.flow_over_gt)}`;
+  document.getElementById('scene-uid').textContent=s.uid;
+  renderToggles();renderMap(s);renderMetrics(s);renderSpeed(s);
+}
+
+fetch('paths.json').then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(data=>{
+  state.data=data;
+  const saved=recall('nf-scene',null);
+  state.index=Number.isInteger(saved)&&saved<data.scenes.length?saved:Math.floor(data.scenes.length/2);
+  state.visible=Object.assign(state.visible,recall('nf-visible',{}));
+  renderSummary();renderList();render();
+}).catch(err=>{
+  document.getElementById('scene-h').textContent='장면 데이터를 불러오지 못했습니다';
+  document.getElementById('scene-uid').textContent='paths.json을 페이지와 같은 위치에 두고 다시 여세요 ('+err.message+')';
+  document.getElementById('summary').innerHTML='<tr><td colspan="7" style="text-align:left">요약 데이터를 불러오지 못했습니다.</td></tr>';
+});
+</script>
